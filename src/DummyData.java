@@ -5,6 +5,8 @@ public class DummyData {
     private Graph dummyData;
 
     public DummyData() {
+        this.dummyData = new Graph();
+
         Node A = new Node("A", 42.37, -72.51);
         Node B = new Node("B", 42.38, -72.50);
         Node C = new Node("C", 42.39, -72.53);
@@ -19,6 +21,12 @@ public class DummyData {
 
         Edge aToE = new Edge(A, E, -50.0, 33.0);
         Edge eToA = new Edge(E, A, 50.0, 33.0);
+
+        this.dummyData.mapStringToNode("A", A);
+        this.dummyData.mapNodeToEdge(A, aToB);
+        this.dummyData.mapNodeToEdge(A, aToD);
+        this.dummyData.mapNodeToEdge(A, aToE);
+
     }
 
     public Graph getDummyData() {
