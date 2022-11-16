@@ -10,7 +10,8 @@ public class Graph {
     private HashMap<Node, ArrayList<Edge>> nodeEdgeMap;
 
     public Graph() {
-        super();
+        this.nameNodeMap = new HashMap<>();
+        this.nodeEdgeMap = new HashMap<>();
     }
 
     public void mapStringToNode(String name, Node node) {
