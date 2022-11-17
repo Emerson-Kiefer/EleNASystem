@@ -1,7 +1,9 @@
+import os
 import sys
-# adding Folder_2 to the system path
-# sys.path.insert(0, '/Users/aaquil/Documents/F22/CS520/final/proj/EleNASystem/DS')
-sys.path.append("DS")
+# # adding DS to the system path
+cur_path = os.path.dirname(__file__)
+DS_path = os.path.join(cur_path, '../DS')
+sys.path.insert(0, DS_path)
 
 from Graph import Graph
 from Node import Node
@@ -31,3 +33,6 @@ dummyData.mapNodeToEdge(A, aToE)
 
 print(dummyData.getNameNodeMap())
 print(dummyData.getNodeEdgeMap())
+
+if __name__ == '__main__':
+    pass
