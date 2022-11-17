@@ -33,6 +33,3 @@ dummyData.mapNodeToEdge(A, aToE)
 
 print(dummyData.getNameNodeMap())
 print(dummyData.getNodeEdgeMap())
-
-if __name__ == '__main__':
-    pass

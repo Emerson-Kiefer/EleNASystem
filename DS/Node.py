@@ -16,3 +16,6 @@ class Node:
 
     def getLatitude(self):
         return self._latitude
+
+    def __repr__(self):
+        return "<nodeName = {}, longitude = {}, latitude = {}>".format(self._nodeName, self._longitude, self._latitude)
