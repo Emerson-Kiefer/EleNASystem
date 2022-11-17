@@ -13,7 +13,11 @@ class Graph:
         self._nameNodeMap[name] = node
 
     def mapNodeToEdge(self, node, edge):
-        self._nodeEdgeMap.get(node, []).append(edge)
+        if (node in self._nodeEdgeMap):
+            self._nodeEdgeMap.get(node).append(edge)
+        else:
+            self._nodeEdgeMap[node] = []
+            self._nodeEdgeMap.get(node).append(edge)
     
 
     def getNameNodeMap(self):
