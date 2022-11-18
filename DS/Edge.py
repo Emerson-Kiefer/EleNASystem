@@ -23,4 +23,4 @@ class Edge:
         return self._distanceGain
 
     def __repr__(self):
-        return "<--fromNode = {}\ntoNode = {}\nelevationGain = {}\ndistanceGain = {}-->".format(str(self._fromNode), str(self._toNode), self._elevationGain, self._distanceGain)
+        return "\n<--fromNode = {}\ntoNode = {}\nelevationGain = {}\ndistanceGain = {}-->\n".format(str(self._fromNode), str(self._toNode), self._elevationGain, self._distanceGain)
