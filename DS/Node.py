@@ -23,5 +23,5 @@ class Node:
         return self._neighborList
 
     def __repr__(self):
-        return "<nodeName = {}, longitude = {}, latitude = {}>".format(self._nodeName, self._longitude, self._latitude)
+        return "<nodeName = {}, longitude = {}, latitude = {}>".format(self._nodeName, self._longitude, self._latitude, self._neighborList)
     
