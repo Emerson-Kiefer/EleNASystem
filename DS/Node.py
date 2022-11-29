@@ -15,7 +15,7 @@ class Node:
             traveled and "Elevation" gain along that edge
     '''
 
-    def __init__(self, id, lat, lon, elevation, neighbors):
+    def __init__(self, id, lat, lon, elevation, neighbors = set()):
         self._id = id
         self._latitude = lat
         self._longitude = lon
