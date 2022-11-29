@@ -1,3 +1,4 @@
+from math import radians, sin, cos, asin, sqrt
 class Node:
     '''
         int id:
@@ -14,21 +15,21 @@ class Node:
             traveled and "Elevation" gain along that edge
     '''
 
-    def __init__(self, id, longi, lati, elevation, neighbors):
+    def __init__(self, id, lat, lon, elevation, neighbors):
         self._id = id
-        self._longitude = longi
-        self._latitude = lati
+        self._latitude = lat
+        self._longitude = lon
         self._elevation = elevation
         self._neighborList = neighbors
 
     def getId(self):
         return self._id
 
-    def getLongitude(self):
-        return self._longitude
-
     def getLatitude(self):
         return self._latitude
+   
+    def getLongitude(self):
+        return self._longitude
     
     def getElevation(self):
         return self._elevation
@@ -36,6 +37,23 @@ class Node:
     def getNeighbors(self):
         return self._neighborList
 
+    def getHaversineDistance(self, node):
+        # Map latitude and longitude to radians
+        lat1 = self._latitude
+        lon1 = self._longitude
+        lat2 = node.getLatitude()
+        lon2 = node.getLongitude()
+
+        lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+        
+        RADIUS = 6378
+
+        # Apply haversine formula
+        a = sin((lat2 - lat1)/2)**2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) /2)**2
+        c = 2 * asin(sqrt(a)) 
+        return c * RADIUS
+
+
     def __repr__(self):
-        return "<id = {}, longitude = {}, latitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._longitude, self._latitude, self._elevation, self._neighborList)
+        return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList)
     
