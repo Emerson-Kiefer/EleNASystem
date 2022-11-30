@@ -5,24 +5,24 @@ class Graph:
     # private HashMap<Node, ArrayList<Edge>> nodeEdgeMap;
 
     def __init__(self):
-        self._nameNodeMap = {}
-        self._nodeEdgeMap = {}
+        self._idMap = {}
+        # self._nodeEdgeMap = {}
     
 
-    def mapStringToNode(self, name, node):
-        self._nameNodeMap[name] = node
+    def mapIdToNode(self, id, node):
+        self._nameNodeMap[id] = node
 
-    def mapNodeToEdge(self, node, edge):
-        if (node in self._nodeEdgeMap):
-            self._nodeEdgeMap.get(node).append(edge)
-        else:
-            self._nodeEdgeMap[node] = []
-            self._nodeEdgeMap.get(node).append(edge)
+    # def mapNodeToEdge(self, node, edge):
+    #     if (node in self._nodeEdgeMap):
+    #         self._nodeEdgeMap.get(node).append(edge)
+    #     else:
+    #         self._nodeEdgeMap[node] = []
+    #         self._nodeEdgeMap.get(node).append(edge)
     
 
-    def getNameNodeMap(self):
+    def getNodeMap(self):
         return self._nameNodeMap
 
-    def getNodeEdgeMap(self):
-        return self._nodeEdgeMap
+    # def getNodeEdgeMap(self):
+    #     return self._nodeEdgeMap
     
