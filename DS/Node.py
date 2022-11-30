@@ -9,13 +9,12 @@ class Node:
             the latitude of the node (from openStreetMap)
         Double elevation
             the elevation of the node (from an elevation API)
-        Dict neighbors;
-            A dictionary where keys are the names of neighboring nodes, 
-            and each value is a dictionary containing the "Distance" 
-            traveled and "Elevation" gain along that edge
+        Set neighbors;
+            A set of neighboring nodes, along with the distance
+            and elevation gain along the path to that neighbor
     '''
 
-    def __init__(self, id, lat, lon, elevation, neighbors = set()):
+    def __init__(self, id, lat, lon, elevation, neighbors):
         self._id = id
         self._latitude = lat
         self._longitude = lon
@@ -36,7 +35,19 @@ class Node:
     
     def getNeighbors(self):
         return self._neighborList
+    
+    # def getPrintableNeighbors(self):
+    #     printablNeighbors = {}
+    #     for neighbor in self._neighborList:
 
+    def addNeighbor(self, neighborNode, distanceToNeighbor, elevationGainToNeighbor):
+        self._neighborList[neighborNode.getId()] = {"neighbor": neighborNode, "distanceToNeighbor":distanceToNeighbor, "elevationGainToNeighbor": elevationGainToNeighbor}
+
+    '''
+        Calculates the distance between two nodes using the haversine formula
+        The earth's radius has a maximum value less than 6378 km, so for the sake of 
+        admissible heuristics we use a radius of 6,378 km
+    '''
     def getHaversineDistance(self, node):
         # Map latitude and longitude to radians
         lat1 = self._latitude
@@ -53,7 +64,7 @@ class Node:
         c = 2 * asin(sqrt(a)) 
         return c * RADIUS
 
-
+#TODO change the representation so that neighborList doesn't print recursive results.
     def __repr__(self):
-        return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList)
+        return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList.keys())
     

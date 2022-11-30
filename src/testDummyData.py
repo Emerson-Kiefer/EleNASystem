@@ -11,28 +11,31 @@ from Edge import Edge
 
 dummyData = Graph()
 
-A = Node("A", 42.37, -72.51, 100)
-B = Node("B", 42.38, -72.50, 50)
-C = Node("C", 42.39, -72.53, 70)
-D = Node("D", 42.35, -72.55, 40)
-E = Node("E", 42.35, -72.52, 150)
+A = Node("A", 24.136472878664144, 49.22118714828496, 100, {})
+B = Node("B", 24.137978719016566, 49.332132804948714, 50, {})
+C = Node("C", 42.39, -72.53, 70, {})
+D = Node("D", 42.35, -72.55, 40, {})
+E = Node("E", 42.35, -72.52, 150, {})
 
-A.getNeighbors().add(B)
-A.getNeighbors().add(D)
-A.getNeighbors().add(E)
+A.addNeighbor(D, 100, 1000)
+A.addNeighbor(E, 10, 100)
 
-B.getNeighbors().add(A)
-B.getNeighbors().add(C)
-B.getNeighbors().add(E)
+D.addNeighbor(A, 9, 99)
 
-C.getNeighbors().add(B)
-C.getNeighbors().add(D)
+B.addNeighbor(A, 10, 17)
 
-D.getNeighbors().add(A)
-D.getNeighbors().add(C)
+# B.getNeighbors().add(A)
+# B.getNeighbors().add(C)
+# B.getNeighbors().add(E)
 
-E.getNeighbors().add(A)
-E.getNeighbors().add(B)
+# C.getNeighbors().add(B)
+# C.getNeighbors().add(D)
+
+# D.getNeighbors().add(A)
+# D.getNeighbors().add(C)
+
+# E.getNeighbors().add(A)
+# E.getNeighbors().add(B)
 
 # aToB = Edge(A, B, 100.0, 20.0)
 # bToA = Edge(B, A, -100.0, 20.0)
@@ -51,7 +54,11 @@ dummyData.mapStringToNode("E", E)
 # dummyData.mapNodeToEdge(A, aToB)
 # dummyData.mapNodeToEdge(A, aToD)
 # dummyData.mapNodeToEdge(A, aToE)
+print(A)
+print()
 print(A.getNeighbors())
 
-print(dummyData.getNameNodeMap())
+# print(dummyData.getNameNodeMap())
 # print(dummyData.getNodeEdgeMap())
+
+# print(A.getHaversineDistance(B))
