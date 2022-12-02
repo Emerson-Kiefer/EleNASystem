@@ -29,6 +29,15 @@ class SearchNode:
     def getParentNode(self):
         return self._parentNode
     
+    def getId(self):
+        return self._node.getId()
+
+    def getParentId(self):
+        return self._parentNode.getId()
+
+    def getNeighbors(self):
+        return self._node.getNeighbors()
+    
     '''
         Compare the cost of a new path from start --> current with the current minimum cost. 
         Update the minCost and parentNode if the new cost is shorter and return True
