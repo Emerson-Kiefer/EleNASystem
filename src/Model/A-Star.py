@@ -1,35 +1,48 @@
 import os
 import sys
-# import heapq as hq
 from queue import PriorityQueue
-from math import radians, cos, sin, asin, sqrt, pi
+
 # # adding DS to the system path
 cur_path = os.path.dirname(__file__)
 DS_path = os.path.join(cur_path, '../../DS')
 sys.path.insert(0, DS_path)
 
-from Graph import Graph
+
 from Node import Node
-from Edge import Edge
 from SearchNode import SearchNode
 
 
-graph = Graph()
+S = Node("S", 24, 49, 0, {})
+A = Node("A", 24.10, 49.10, 0, {})
+B = Node("B", 23.99, 49.01, 0, {})
+C = Node("C", 24.00, 49.01, 0, {})
+D = Node("D", 48, 48, 0, {})
+G = Node("G", 24, 49.3, 0, {})
 
-A = Node("A", 24.136472878664144, 49.22118714828496, 100, {})
-B = Node("B", 24.137978719016566, 49.332132804948714, 50, {})
-C = Node("C", 42.39, -72.53, 70, {})
-D = Node("D", 42.35, -72.55, 40, {})
-E = Node("E", 42.35, -72.52, 150, {})
+S.addNeighbor(A, S.getHaversineDistance(A), 0)
+S.addNeighbor(B, S.getHaversineDistance(B), 0)
+S.addNeighbor(C, S.getHaversineDistance(C), 0)
+A.addNeighbor(S, A.getHaversineDistance(S), 0)
+A.addNeighbor(B, A.getHaversineDistance(B), 0)
+A.addNeighbor(G, A.getHaversineDistance(G), 0)
+B.addNeighbor(S, B.getHaversineDistance(S), 0)
+B.addNeighbor(A, B.getHaversineDistance(A), 0)
+B.addNeighbor(D, B.getHaversineDistance(D), 0)
+C.addNeighbor(S, C.getHaversineDistance(S), 0)
+D.addNeighbor(B, D.getHaversineDistance(B), 0)
+D.addNeighbor(G, D.getHaversineDistance(G), 0)
+G.addNeighbor(A, G.getHaversineDistance(A), 0)
+G.addNeighbor(D, G.getHaversineDistance(D), 0)
 
-A.addNeighbor(D, 100, 1000)
-A.addNeighbor(E, 10, 100)
+def recreatePath(goalSearchNode):
+    # print("\n\n\n\n\n\n", goalSearchNode)
+    nodes = []
+    currentSearchNode = goalSearchNode
+    while currentSearchNode != None:
+        nodes.insert(0, currentSearchNode.getNode())
+        currentSearchNode = currentSearchNode.getParentSearchNode()
+    print(nodes)
 
-D.addNeighbor(A, 9, 99)
-
-B.addNeighbor(A, 10, 17)
-
-print(A)
 
 
 def a_star(startNode, goalNode):
@@ -39,53 +52,68 @@ def a_star(startNode, goalNode):
 
     ''' Dictionary with:
         key = node ID
-        value = {"priority": int priority, "explored": bool}
+        value = {"searchNode": SearchNode, "explored": bool}
     '''
     frontierDict = {}
 
     startSearchNode = SearchNode(startNode, 0, startNode.getHaversineDistance(goalNode), None)
-    frontierDict[startNode.getId()] = {"priority": startSearchNode.getPriority(), "explored": False}
-
     frontierQ.put((startSearchNode.getPriority(), startSearchNode))
+    
+    #Add the currentSearchNode to the frontierDict as explored
+    frontierDict[startSearchNode.getId()] = {"searchNode": startSearchNode, "explored": False}
 
-    currentNode = None
+    #Initialize the currentNode
+    currentSearchNode = None
+
     while not frontierQ.empty():
-        currentNode = frontierQ.get()[1]
-        print("CURRENT NODE", currentNode)
 
-        #If the currentNode is the goal, exit the while loop
-        if currentNode.getId() == goalNode.getId():
+        #currentSearchNode is the searchNode with the smallest cost (smallest priority value)
+        currentSearchNode = frontierQ.get()[1]
+
+        #If the node has already been explored, skip this node:
+        if frontierDict[currentSearchNode.getId()]["explored"]:
+            continue
+
+        #Add the currentSearchNode to the frontierDict as explored
+        frontierDict[currentSearchNode.getId()] = {"searchNode": currentSearchNode, "explored": True}
+
+        #If the currentSearchNode is the goal, exit the while loop
+        if currentSearchNode.getId() == goalNode.getId():
             break
 
-        #Generate each possible successor state from the currentNode's neighbors dictionary
-        for neighbor in currentNode.getNeighbors().items():
+        for neighbor in currentSearchNode.getNeighbors().items():
             neighborNode = neighbor[1]["neighbor"]
-        
-            neighborEdgeCost = neighbor[1]["distanceToNeighbor"] #doesn't necessarily have to be distance, could be elevation gain...
-            neighborCost = currentNode.getMinCost() + neighborEdgeCost
-            neighborHeuristicCost = neighborNode.getHaversineDistance() #doesn't necessarily have to be haversine distance, could be estimated elevation gain...
-            
-            #If the successor is in the dictionary and is not yet explored (still in the priority queue )
-            if neighborNode.getId() in frontierDict and not frontierDict[neighborNode.getId()]["explored"]:
-                if
 
-            #If the successor has been explored (is no longer in the priority queue)
-            elif neighborNode.getId() in frontierDict and frontierDict[neighborNode.getId()]["explored"]:
-                
-            #If this is the first time the successor has been reached
+            #If the neighbor has been explored (is no longer in the priority queue)
+            if neighborNode.getId() in frontierDict and frontierDict[neighborNode.getId()]["explored"]:
+                continue
+
+            #A potentical new cost for the neighbor:
+            #   the currentSearchNode's cost + the cost of the edge from currentSearchNode to neighborNode
+            tempNeighborCost = currentSearchNode.getMinCost() + neighbor[1]["distanceToNeighbor"]
+
+            #If the neighbor has been discovered but not explored (is in the priority queue)
+            if neighborNode.getId() in frontierDict:
+                neighborSearchNode = frontierDict[neighborNode.getId()]["searchNode"]
+                if tempNeighborCost < neighborSearchNode.getMinCost():
+                    neighborSearchNode.setMinCost(tempNeighborCost)
+                    neighborSearchNode.setParentSearchNode(currentSearchNode)
+                    frontierQ.put((neighborSearchNode.getPriority(), neighborSearchNode))
+
+            #Otherwise (the neighbor has not been discovered )
             else:
-                neighborSearchNode = SearchNode(neighborNode, neighborCost, neighborHeuristicCost, currentNode )
-                frontierDict[neighborNode.getId()] = {"priority": neighborSearchNode.getPriority(), "explored": False}
+                neighborSearchNode = SearchNode(neighborNode, tempNeighborCost, neighborNode.getHaversineDistance(goalNode), currentSearchNode)
                 frontierQ.put((neighborSearchNode.getPriority(), neighborSearchNode))
+                frontierDict[neighborNode.getId()] = {"searchNode": neighborSearchNode, "explored": False}
 
-
-        frontierDict[currentNode.getId()]["explored"] = True
-
-    if currentNode == None:
+    if currentSearchNode == None:
         raise Exception("No values in frontier queue")
 
-    if currentNode.getId() != goalNode.getId():
+    if currentSearchNode.getId() != goalNode.getId():
         raise Exception("Goal not reached by a_star")
 
+    return currentSearchNode
 
-a_star(A, B)
+
+finalSearchNode = a_star(S, G)
+recreatePath(finalSearchNode)

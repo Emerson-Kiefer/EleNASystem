@@ -11,53 +11,45 @@ from Edge import Edge
 
 dummyData = Graph()
 
-A = Node("A", 24.136472878664144, 49.22118714828496, 100, {})
-B = Node("B", 24.137978719016566, 49.332132804948714, 50, {})
-C = Node("C", 42.39, -72.53, 70, {})
-D = Node("D", 42.35, -72.55, 40, {})
-E = Node("E", 42.35, -72.52, 150, {})
+S  = Node("S", 24, 49, 0, {})
+A = Node("A", 24.10, 49.10, 0, {})
+B = Node("B", 23.99, 49.01, 0, {})
+C = Node("C", 24.00, 49.01, 0, {})
+D = Node("D", 48, 48, 0, {})
+G = Node("G", 24, 49.3, 0, {})
 
-A.addNeighbor(D, 100, 1000)
-A.addNeighbor(E, 10, 100)
+S.addNeighbor(A, S.getHaversineDistance(A), 0)
+S.addNeighbor(B, S.getHaversineDistance(B), 0)
+S.addNeighbor(C, S.getHaversineDistance(C), 0)
+A.addNeighbor(S, A.getHaversineDistance(S), 0)
+A.addNeighbor(B, A.getHaversineDistance(B), 0)
+A.addNeighbor(G, A.getHaversineDistance(G), 0)
+B.addNeighbor(S, B.getHaversineDistance(S), 0)
+B.addNeighbor(A, B.getHaversineDistance(A), 0)
+B.addNeighbor(D, B.getHaversineDistance(D), 0)
+C.addNeighbor(S, C.getHaversineDistance(S), 0)
+D.addNeighbor(B, D.getHaversineDistance(B), 0)
+D.addNeighbor(G, D.getHaversineDistance(G), 0)
+G.addNeighbor(A, G.getHaversineDistance(A), 0)
+G.addNeighbor(D, G.getHaversineDistance(D), 0)
 
-D.addNeighbor(A, 9, 99)
 
-B.addNeighbor(A, 10, 17)
 
-# B.getNeighbors().add(A)
-# B.getNeighbors().add(C)
-# B.getNeighbors().add(E)
 
-# C.getNeighbors().add(B)
-# C.getNeighbors().add(D)
 
-# D.getNeighbors().add(A)
-# D.getNeighbors().add(C)
 
-# E.getNeighbors().add(A)
-# E.getNeighbors().add(B)
 
-# aToB = Edge(A, B, 100.0, 20.0)
-# bToA = Edge(B, A, -100.0, 20.0)
+# A.addNeighbor(D, 100, 1000)
+# A.addNeighbor(E, 10, 100)
 
-# aToD = Edge(A, D, 250.0, 28.0)
-# dToA = Edge(D, A, -250.0, 28.0)
+# D.addNeighbor(A, 9, 99)
 
-# aToE = Edge(A, E, -50.0, 33.0)
-# eToA = Edge(E, A, 50.0, 33.0)
+# B.addNeighbor(A, 10, 17)
 
-dummyData.mapIdToNode("A", A)
-dummyData.mapIdToNode("B", B)
-dummyData.mapIdToNode("C", C)
-dummyData.mapIdToNode("D", D)
-dummyData.mapIdToNode("E", E)
-print(dummyData.getNodeMap())
-
-print(A)
-print()
-print(A.getNeighbors())
+# print(A)
+# print()
+# print(A.getNeighbors())
 
 # print(dummyData.getNameNodeMap())
 # print(dummyData.getNodeEdgeMap())
 
-# print(A.getHaversineDistance(B))
