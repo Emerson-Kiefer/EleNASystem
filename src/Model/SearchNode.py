@@ -8,11 +8,11 @@ class SearchNode:
             The value of the heuristic's estimate for the cost from this node to the goal node
     '''
 
-    def __init__(self, node, minCost, heuristicValue, parentNode):
+    def __init__(self, node, minCost, heuristicValue, parentSearchNode):
         self._node = node
         self._minCost = minCost
         self._heuristicValue = heuristicValue
-        self._parentNode = parentNode
+        self._parentSearchNode = parentSearchNode
 
     def getNode(self):
         return self._node
@@ -26,8 +26,8 @@ class SearchNode:
     def getPriority(self):
         return self._minCost + self._heuristicValue
 
-    def getParentNode(self):
-        return self._parentNode
+    def getParentSearchNode(self):
+        return self._parentSearchNode
     
     def getId(self):
         return self._node.getId()
@@ -43,11 +43,11 @@ class SearchNode:
         Update the minCost and parentNode if the new cost is shorter and return True
             return False if no update was required
     '''
-    def updateMinDistanceTraveled(self, newCost, newParentNode):
+    def updateMinDistanceTraveled(self, newCost, newParentSearchNode):
         if newCost > self._minCost:
             return False
         self._minCost = newCost
-        self._parentNode = newParentNode
+        self._parentNode = newParentSearchNode
         return True
 
 
@@ -56,5 +56,5 @@ class SearchNode:
 
 
     def __repr__(self):
-        return "<node = {}, minCost = {}, heuristicValue = {}, parentNode = {}>".format(self._node, self._minCost, self._heuristicValue, self._parentNode)
+        return "<node = {}, minCost = {}, heuristicValue = {}, parentSearchNode = {}>".format(self._node, self._minCost, self._heuristicValue, self._parentSearchNode)
     
