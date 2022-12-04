@@ -53,6 +53,15 @@ class SearchNode:
 
     def setHeuristicValue(self, newHeuristicValue):
         self._heuristicValue = newHeuristicValue
+    
+    
+    def recreatePath(self):
+        nodes = []
+        currentSearchNode = self
+        while currentSearchNode != None:
+            nodes.insert(0, currentSearchNode.getNode())
+            currentSearchNode = currentSearchNode.getParentSearchNode()
+        return nodes
 
 
     def __repr__(self):

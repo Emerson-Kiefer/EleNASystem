@@ -28,17 +28,7 @@ D.addNeighbor(G, D.getHaversineDistance(G), D.getElevationGain(G))
 G.addNeighbor(A, G.getHaversineDistance(A), G.getElevationGain(A))
 G.addNeighbor(D, G.getHaversineDistance(D), G.getElevationGain(D))
 
-def recreatePath(goalSearchNode):
-    # print("\n\n\n\n\n\n", goalSearchNode)
-    nodes = []
-    currentSearchNode = goalSearchNode
-    while currentSearchNode != None:
-        nodes.insert(0, currentSearchNode.getNode())
-        currentSearchNode = currentSearchNode.getParentSearchNode()
-    return nodes
-
 def getPathStats(nodes):
-    print("Path Length:")
     totalLength = 0
     totalElevationGain = 0
     for i in range (0, len(nodes) - 1):
@@ -47,13 +37,6 @@ def getPathStats(nodes):
         totalElevationGain += successorDict["elevationGainToNeighbor"]
         
     return {"length": totalLength, "elevationGain": totalElevationGain}
-
-
-
-def getElevationGain(nodes):
-    print("Elevation Gain")
-
-
 
 
 def a_star(startNode, goalNode):
@@ -127,6 +110,6 @@ def a_star(startNode, goalNode):
 
 
 finalSearchNode = a_star(S, G)
-path = recreatePath(finalSearchNode)
+path = finalSearchNode.recreatePath()
 print(path)
 print(getPathStats(path))
