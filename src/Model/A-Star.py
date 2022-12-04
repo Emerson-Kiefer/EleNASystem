@@ -2,12 +2,6 @@ import os
 import sys
 from queue import PriorityQueue
 
-# # adding DS to the system path
-cur_path = os.path.dirname(__file__)
-DS_path = os.path.join(cur_path, '../../DS')
-sys.path.insert(0, DS_path)
-
-
 from Node import Node
 from SearchNode import SearchNode
 
