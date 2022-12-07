@@ -2,47 +2,41 @@ import os
 import sys
 from queue import PriorityQueue
 
-# # adding DS to the system path
-cur_path = os.path.dirname(__file__)
-DS_path = os.path.join(cur_path, '../../DS')
-sys.path.insert(0, DS_path)
-
-
 from Node import Node
 from SearchNode import SearchNode
 
 
 S = Node("S", 24, 49, 0, {})
-A = Node("A", 24.10, 49.10, 0, {})
-B = Node("B", 23.99, 49.01, 0, {})
+A = Node("A", 24.10, 49.10, 100, {})
+B = Node("B", 23.99, 49.01, 50, {})
 C = Node("C", 24.00, 49.01, 0, {})
 D = Node("D", 48, 48, 0, {})
-G = Node("G", 24, 49.3, 0, {})
+G = Node("G", 24, 49.3, 20, {})
 
-S.addNeighbor(A, S.getHaversineDistance(A), 0)
-S.addNeighbor(B, S.getHaversineDistance(B), 0)
-S.addNeighbor(C, S.getHaversineDistance(C), 0)
-A.addNeighbor(S, A.getHaversineDistance(S), 0)
-A.addNeighbor(B, A.getHaversineDistance(B), 0)
-A.addNeighbor(G, A.getHaversineDistance(G), 0)
-B.addNeighbor(S, B.getHaversineDistance(S), 0)
-B.addNeighbor(A, B.getHaversineDistance(A), 0)
-B.addNeighbor(D, B.getHaversineDistance(D), 0)
-C.addNeighbor(S, C.getHaversineDistance(S), 0)
-D.addNeighbor(B, D.getHaversineDistance(B), 0)
-D.addNeighbor(G, D.getHaversineDistance(G), 0)
-G.addNeighbor(A, G.getHaversineDistance(A), 0)
-G.addNeighbor(D, G.getHaversineDistance(D), 0)
+S.addNeighbor(A, S.getHaversineDistance(A), S.getElevationGain(A))
+S.addNeighbor(B, S.getHaversineDistance(B), S.getElevationGain(B))
+S.addNeighbor(C, S.getHaversineDistance(C), S.getElevationGain(C))
+A.addNeighbor(S, A.getHaversineDistance(S), A.getElevationGain(S))
+A.addNeighbor(B, A.getHaversineDistance(B), A.getElevationGain(B))
+A.addNeighbor(G, A.getHaversineDistance(G), A.getElevationGain(G))
+B.addNeighbor(S, B.getHaversineDistance(S), B.getElevationGain(S))
+B.addNeighbor(A, B.getHaversineDistance(A), B.getElevationGain(A))
+B.addNeighbor(D, B.getHaversineDistance(D), B.getElevationGain(D))
+C.addNeighbor(S, C.getHaversineDistance(S), C.getElevationGain(S))
+D.addNeighbor(B, D.getHaversineDistance(B), D.getElevationGain(B))
+D.addNeighbor(G, D.getHaversineDistance(G), D.getElevationGain(G))
+G.addNeighbor(A, G.getHaversineDistance(A), G.getElevationGain(A))
+G.addNeighbor(D, G.getHaversineDistance(D), G.getElevationGain(D))
 
-def recreatePath(goalSearchNode):
-    # print("\n\n\n\n\n\n", goalSearchNode)
-    nodes = []
-    currentSearchNode = goalSearchNode
-    while currentSearchNode != None:
-        nodes.insert(0, currentSearchNode.getNode())
-        currentSearchNode = currentSearchNode.getParentSearchNode()
-    print(nodes)
-
+def getPathStats(nodes):
+    totalLength = 0
+    totalElevationGain = 0
+    for i in range (0, len(nodes) - 1):
+        successorDict = nodes[i].getNeighbors()[nodes[i+1].getId()]
+        totalLength += successorDict["distanceToNeighbor"]
+        totalElevationGain += successorDict["elevationGainToNeighbor"]
+        
+    return {"length": totalLength, "elevationGain": totalElevationGain}
 
 
 def a_star(startNode, goalNode):
@@ -116,4 +110,6 @@ def a_star(startNode, goalNode):
 
 
 finalSearchNode = a_star(S, G)
-recreatePath(finalSearchNode)
+path = finalSearchNode.recreatePath()
+print(path)
+print(getPathStats(path))

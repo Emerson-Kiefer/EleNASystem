@@ -44,7 +44,7 @@ class Node:
         self._neighborList[neighborNode.getId()] = {"neighbor": neighborNode, "distanceToNeighbor":distanceToNeighbor, "elevationGainToNeighbor": elevationGainToNeighbor}
 
     '''
-        Calculates the distance between two nodes using the haversine formula
+        Calculates the distance from self to another node using the haversine formula
         The earth's radius has a maximum value less than 6378 km, so for the sake of 
         admissible heuristics we use a radius of 6,378 km
     '''
@@ -63,6 +63,12 @@ class Node:
         a = sin((lat2 - lat1)/2)**2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) /2)**2
         c = 2 * asin(sqrt(a)) 
         return c * RADIUS
+    
+    '''Calculates the elevation gain along an edge (from self to another node)
+        0 if the elevation decreases or stays the same
+    '''
+    def getElevationGain(self, node):
+        return node.getElevation() - self._elevation if node.getElevation() > self._elevation else 0
 
 #TODO change the representation so that neighborList doesn't print recursive results.
     def __repr__(self):
