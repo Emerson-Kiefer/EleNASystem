@@ -50,11 +50,11 @@ class SearchNode:
         self._parentNode = newParentSearchNode
         return True
 
-
     def setHeuristicValue(self, newHeuristicValue):
         self._heuristicValue = newHeuristicValue
     
-    
+    ''' Returns an ordered (start to goal) list of the nodes 
+    '''
     def recreatePath(self):
         nodes = []
         currentSearchNode = self
