@@ -2,8 +2,8 @@ import os
 import sys
 from queue import PriorityQueue
 
-from Node import Node
-from SearchNode import SearchNode
+from src.Model.Node import Node
+from src.Model.SearchNode import SearchNode
 
 
 S = Node("S", 24, 49, 0, {})
@@ -28,6 +28,9 @@ D.addNeighbor(G, D.getHaversineDistance(G), D.getElevationGain(G))
 G.addNeighbor(A, G.getHaversineDistance(A), G.getElevationGain(A))
 G.addNeighbor(D, G.getHaversineDistance(D), G.getElevationGain(D))
 
+def returnNumber():
+    return 1000
+    
 def getPathStats(nodes):
     totalLength = 0
     totalElevationGain = 0
