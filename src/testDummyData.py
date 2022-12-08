@@ -2,14 +2,14 @@ import os
 import sys
 # # adding DS to the system path
 cur_path = os.path.dirname(__file__)
-DS_path = os.path.join(cur_path, '../DS')
+DS_path = os.path.join(cur_path, './Model')
 sys.path.insert(0, DS_path)
 
-from Graph import Graph
+# from Graph import Graph
 from Node import Node
-from Edge import Edge
+# from Edge import Edge
 
-dummyData = Graph()
+# dummyData = Graph()
 
 S  = Node("S", 24, 49, 0, {})
 A = Node("A", 24.10, 49.10, 0, {})
@@ -46,9 +46,9 @@ G.addNeighbor(D, G.getHaversineDistance(D), 0)
 
 # B.addNeighbor(A, 10, 17)
 
-# print(A)
-# print()
-# print(A.getNeighbors())
+print(A)
+print()
+print(A.getNeighbors())
 
 # print(dummyData.getNameNodeMap())
 # print(dummyData.getNodeEdgeMap())

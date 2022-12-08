@@ -14,7 +14,7 @@ class Node:
             and elevation gain along the path to that neighbor
     '''
 
-    def __init__(self, id, lat, lon, elevation, neighbors):
+    def __init__(self, id, lat, lon, elevation, neighbors = dict()):
         self._id = id
         self._latitude = lat
         self._longitude = lon
