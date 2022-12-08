@@ -3,11 +3,10 @@ import xml.etree.cElementTree as ET
 import sys
 # import pyrosm
 
-# cur_path = os.path.dirname(__file__)
-# DS_path = os.path.join(cur_path, '../Model')
-# sys.path.insert(0, DS_path)
-# from Node import Node
-from src.Model.Node import Node
+cur_path = os.path.dirname(__file__)
+DS_path = os.path.join(cur_path, '../Model')
+sys.path.insert(0, DS_path)
+from Node import Node
 
 # fp = pyrosm.get_data("massachusetts", directory=cur_path)
 # osm = pyrosm.OSM(fp)
