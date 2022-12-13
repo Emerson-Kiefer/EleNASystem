@@ -30,10 +30,19 @@ class MainWindow(QMainWindow):
         self.line2.resize(200, 32)
         self.dest_label.move(20, 80)
 
+        self.dist_label = QLabel(self)
+        self.dist_label.setText("% of Optimal Distance:")
+        self.line3 = QLineEdit(self)
+        self.dist_label.setWordWrap(True)
+
+        self.line3.move(120, 140)
+        self.line3.resize(200, 32)
+        self.dist_label.move(20, 140)
+
         pybutton = QPushButton('Go', self)
         pybutton.clicked.connect(self.clickMethod)
         pybutton.resize(200,32)
-        pybutton.move(20, 130)        
+        pybutton.move(20, 200)        
 
     def clickMethod(self):
         print('Your name: ' + self.line.text())
