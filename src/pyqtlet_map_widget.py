@@ -1,6 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget, QLineEdit, QLabel
 from pyqtlet import L, MapWidget
+
 
 
 class MapWindow(QWidget):

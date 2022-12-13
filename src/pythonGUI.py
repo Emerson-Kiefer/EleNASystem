@@ -12,18 +12,28 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(QSize(1000, 700))    
         self.setWindowTitle("520 EleNA Project") 
 
-        self.nameLabel = QLabel(self)
-        self.nameLabel.setText('Name:')
+        self.start_label = QLabel(self)
+        self.start_label.setText('Start Coordinates:')
         self.line = QLineEdit(self)
 
-        self.line.move(80, 20)
+        self.line.move(120, 20)
         self.line.resize(200, 32)
-        self.nameLabel.move(20, 20)
+        self.start_label.move(20, 20)
+        self.start_label.setWordWrap(True)
 
-        pybutton = QPushButton('OK', self)
+        self.dest_label = QLabel(self)
+        self.dest_label.setText("Destination Coordinates:")
+        self.line2 = QLineEdit(self)
+        self.dest_label.setWordWrap(True)
+
+        self.line2.move(120, 80)
+        self.line2.resize(200, 32)
+        self.dest_label.move(20, 80)
+
+        pybutton = QPushButton('Go', self)
         pybutton.clicked.connect(self.clickMethod)
         pybutton.resize(200,32)
-        pybutton.move(80, 60)        
+        pybutton.move(20, 130)        
 
     def clickMethod(self):
         print('Your name: ' + self.line.text())
