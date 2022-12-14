@@ -38,6 +38,9 @@ class Node:
     def getNeighbors(self):
         return self._neighborList
     
+    def setElevation(self, elev):
+        self._elevation = elev
+    
     # def getPrintableNeighbors(self):
     #     printablNeighbors = {}
     #     for neighbor in self._neighborList:
