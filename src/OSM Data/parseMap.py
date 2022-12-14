@@ -5,6 +5,7 @@ import json
 import urllib.request
 import ssl
 import requests
+import _pickle as pickle
 ssl._create_default_https_context = ssl._create_unverified_context
 cur_path = os.path.dirname(__file__)
 DS_path = os.path.join(cur_path, '../Model')
@@ -53,8 +54,13 @@ def createNodesFromOSM(filepath):
 def addNodesNeighbors(node_dict):
     pass
 
-def storeDictAsTxt(node_dict):
-    pass
+def storeDictAsTxt(node_dict, filepath, file_name):
+    dbfile = open(filepath + "/" + file_name, 'ab')
+    pickle.dump(node_dict, dbfile)                     
+    dbfile.close()
 
 def loadDictFromTxt(filepath):
-    pass
+    dbfile = open(filepath, 'rb')     
+    db = pickle.load(dbfile)
+    dbfile.close()
+    return db

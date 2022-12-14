@@ -1,5 +1,4 @@
 from parseMap import *
-import _pickle as pickle
 import os
 
 cur_path = os.path.dirname(__file__)
@@ -38,8 +37,7 @@ post_req = {}
 
 # print(node_dict)
 
-with open(cur_path + "/AmherstNodes.txt", "rb") as file:
-    db = pickle.load(file)
-    print(db)
 
-    # file.write(pickle.dumps(node_dict))
+storeDictAsTxt(node_dict, cur_path, "AmherstNodes")
+dic = loadDictFromTxt(cur_path + "/AmherstNodes")
+print(dic)
