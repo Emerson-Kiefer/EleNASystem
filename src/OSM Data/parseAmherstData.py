@@ -38,6 +38,6 @@ post_req = {}
 # print(node_dict)
 
 
-storeDictAsTxt(node_dict, cur_path, "AmherstNodes")
+storeDictAsTxt(node_dict, cur_path + "/AmherstNodes")
 dic = loadDictFromTxt(cur_path + "/AmherstNodes")
 print(dic)

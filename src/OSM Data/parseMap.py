@@ -54,8 +54,8 @@ def createNodesFromOSM(filepath):
 def addNodesNeighbors(node_dict):
     pass
 
-def storeDictAsTxt(node_dict, filepath, file_name):
-    dbfile = open(filepath + "/" + file_name, 'ab')
+def storeDictAsTxt(node_dict, filepath):
+    dbfile = open(filepath, 'ab')
     pickle.dump(node_dict, dbfile)                     
     dbfile.close()
 
