@@ -2,8 +2,8 @@ import os
 import sys
 from queue import PriorityQueue
 
-from src.Model.Node import Node
-from src.Model.SearchNode import SearchNode
+from Node import Node
+from SearchNode import SearchNode
 
 
 S = Node("S", 24, 49, 0, {})
