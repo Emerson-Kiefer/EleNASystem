@@ -1,5 +1,6 @@
 from math import radians, sin, cos, asin, sqrt
 import json
+import numbers
 
 class Node:
     '''
@@ -17,11 +18,38 @@ class Node:
     '''
 
     def __init__(self, id, lat, lon, elevation, neighbors = dict()):
-        self._id = id
-        self._latitude = lat
-        self._longitude = lon
-        self._elevation = elevation
-        self._neighborList = neighbors
+        self._id = self._is_valid_id(id)
+        self._latitude = self._is_valid_lat(lat)
+        self._longitude = self._is_valid_lon(lon)
+        self._elevation = self._is_valid_elevation(elevation)
+        self._neighborList = self._is_valid_neighbors(neighbors)
+
+    def _is_valid_id(self, id):
+        return id
+
+    def _is_valid_lat(self, lat):
+        if not isinstance(lat, numbers.Number):
+            raise TypeError("Error: Latitude is not a number")
+        if lat < -90 or lat > 90:
+            raise ValueError("Error: Latitude is less than -90 or greater than 90")
+        return lat
+
+    def _is_valid_lon(self, lon):
+        if not isinstance(lon, numbers.Number):
+            raise TypeError("Error: Longitude is not a number")
+        if lon < -180 or lon > 180:
+            raise ValueError("Error: Longitude is less than -180 or greater than 180")
+        return lon
+
+    def _is_valid_elevation(self, elevation):
+        if not isinstance(elevation, numbers.Number):
+            raise TypeError("Error: Elevation is not a number")
+        return elevation
+    
+    def _is_valid_neighbors(self, neighbors):
+        if not isinstance(neighbors, dict):
+            raise TypeError("Error: Neighbors is not a dict")
+        return neighbors
 
     def getId(self):
         return self._id
