@@ -2,6 +2,7 @@ from Node import Node
 from SearchNode import SearchNode
 from queue import PriorityQueue
 import math
+import numbers
 
 class SearchGraph:
     '''
@@ -22,15 +23,25 @@ class SearchGraph:
         self._elevationPath = []
 
     def _is_valid_startNode(self, startNode):
+        if not isinstance(startNode, Node):
+            raise TypeError("Error: startNode is not a Node")
         return startNode
 
     def _is_valid_goalNode(self, goalNode):
+        if not isinstance(goalNode, Node):
+            raise TypeError("Error: goalNode is not a Node")
         return goalNode
 
     def _is_valid_percentShortestPath(self, percentShortestPath):
+        if not isinstance(percentShortestPath, numbers.Number):
+            raise TypeError("Error: percentShortestPath is not a number")
         return percentShortestPath
 
     def _is_valid_mode(self, mode):
+        if not isinstance(mode, str):
+            raise TypeError("Error: mode is not a str")
+        if mode != "maximize" and mode != "minimize":
+            raise ValueError("Error: Mode is neither maximize nor minimize")
         return mode
     
     def getStartNode(self):
