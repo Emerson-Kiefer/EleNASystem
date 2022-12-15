@@ -1,0 +1,4 @@
+PyQt5==5.15.7
+pyqtlet==0.3.3
+requests==2.27.1
+tkintermapview==1.18

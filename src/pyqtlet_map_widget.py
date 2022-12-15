@@ -20,6 +20,7 @@ class MapWindow(QWidget):
         self.marker = L.marker([42.38646066688732, -72.52584380181533])
         self.marker.bindPopup('Maps are a treasure.')
         self.map.addLayer(self.marker)
+        self.mapWidget.setFixedSize(200,800)
         self.show()
 
 if __name__ == '__main__':
