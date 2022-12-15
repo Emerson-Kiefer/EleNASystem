@@ -27,9 +27,6 @@ D.addNeighbor(B, D.getHaversineDistance(B), D.getElevationGain(B))
 D.addNeighbor(G, D.getHaversineDistance(G), D.getElevationGain(G))
 G.addNeighbor(A, G.getHaversineDistance(A), G.getElevationGain(A))
 G.addNeighbor(D, G.getHaversineDistance(D), G.getElevationGain(D))
-
-def returnNumber():
-    return 1000
     
 def getPathStats(nodes):
     totalLength = 0
