@@ -1,3 +1,5 @@
+from Node import Node
+import numbers
 class SearchNode:
     '''
         Node node:
@@ -9,10 +11,30 @@ class SearchNode:
     '''
 
     def __init__(self, node, minCost, heuristicValue, parentSearchNode):
-        self._node = node
-        self._minCost = minCost
-        self._heuristicValue = heuristicValue
-        self._parentSearchNode = parentSearchNode
+        self._node = self._is_valid_node(node)
+        self._minCost = self._is_valid_minCost(minCost)
+        self._heuristicValue = self._is_valid_heuristicValue(heuristicValue)
+        self._parentSearchNode = self._is_valid_parentSearchNode(parentSearchNode)
+
+    def _is_valid_node(self, node):
+        if not isinstance(node, Node):
+            raise TypeError("Error: node is not a Node")
+        return node
+    
+    def _is_valid_minCost(self, minCost):
+        if not isinstance(minCost, numbers.Number):
+            raise TypeError("Error: minCost is not a number")
+        return minCost
+
+    def _is_valid_heuristicValue(self, heuristicValue):
+        if not isinstance(heuristicValue, numbers.Number):
+            raise TypeError("Error: heuristicValue is not a number")
+        return heuristicValue
+
+    def _is_valid_parentSearchNode(self, parentSearchNode):
+        if parentSearchNode != None and not isinstance(parentSearchNode, SearchNode):
+            raise TypeError("Error: parentSearchNode is not a SearchNode")
+        return parentSearchNode
 
     def getNode(self):
         return self._node
