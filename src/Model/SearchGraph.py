@@ -56,6 +56,12 @@ class SearchGraph:
     def getMode(self):
         return self._mode
 
+    def getShortestPath(self):
+        return self._shortestPath
+
+    def getElevationPath(self):
+        return self._elevationPath
+
     def getPathStats(self, nodes):
         totalLength = 0
         totalElevationGain = 0
@@ -181,7 +187,7 @@ class SearchGraph:
         self._shortestPath = a_star_FinalSearchNode.recreatePath()
 
         #   Initialize shortestPathLength to the length of shortestPath
-        maxPathLength = self.getPathStats(self._shortestPath)*(1 + self._percentShortestPath)
+        maxPathLength = self.getPathStats(self._shortestPath)["length"]*(1 + self._percentShortestPath)
 
         #   Set the elevationPath to the minimum/maximum elevation gain path within % of optimal length
         self._elevationPath = self.minmax_elevation_gain(self._startNode, self._goalNode, 0, 0, maxPathLength, [], self._mode)
