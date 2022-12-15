@@ -51,8 +51,57 @@ def createNodesFromOSM(filepath):
     
     return node_dict
 
-def addNodesNeighbors(node_dict):
-    pass
+def addNodesNeighbors(node_dict, filepath):
+    temp = {}
+    for event, elem in ET.iterparse(filepath, events=("start",)):
+
+        if (elem.tag == "way"):
+
+            nodesInWay = []
+            for child in elem:
+                if child.tag == "nd":
+                    nodesInWay.append(child.attrib.get("ref"))
+            
+            for i in range(1, len(nodesInWay)):
+                n1 = node_dict.get(nodesInWay[i-1])
+                n2 = node_dict.get(nodesInWay[i])
+                # print(n1.getId(), n2.getId())
+                if n1.getId() in temp:
+                    temp.get(n1.getId()).append(n2.getId())
+                else:
+                    temp[n1.getId()] = []
+                    temp.get(n1.getId()).append(n2.getId())
+
+                if n2.getId() in temp:
+                    temp.get(n2.getId()).append(n1.getId())
+                else:
+                    temp[n2.getId()] = []
+                    temp.get(n2.getId()).append(n1.getId())
+
+                n1.addNeighbor(n2)
+                n2.addNeighbor(n1)
+                # print(len(n1.getNeighbors()), len(n2.getNeighbors()))
+            # print(nodesInWay)
+        
+    # print(temp)
+
+            # prev = None
+
+            # for child in elem:
+                
+            #     if (child.tag == "nd"):
+            #         if prev == None:
+            #             print(prev)
+            #             prev = node_dict.get(child.attrib.get("ref"))
+            #             print(prev.getId())
+            #         else:
+            #             cur = node_dict.get(child.attrib.get("ref"))
+            #             print(prev.getId(), cur.getId())
+            #             cur.addNeighbor(prev)
+            #             prev.addNeighbor(cur)
+            #             prev = cur
+            #     else:
+            #         prev = None
 
 def storeDictAsTxt(node_dict, filepath):
     dbfile = open(filepath, 'ab')

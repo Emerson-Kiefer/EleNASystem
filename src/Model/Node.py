@@ -45,8 +45,11 @@ class Node:
     #     printablNeighbors = {}
     #     for neighbor in self._neighborList:
 
-    def addNeighbor(self, neighborNode, distanceToNeighbor, elevationGainToNeighbor):
-        self._neighborList[neighborNode.getId()] = {"neighbor": neighborNode, "distanceToNeighbor":distanceToNeighbor, "elevationGainToNeighbor": elevationGainToNeighbor}
+    def addNeighbor(self, neighborNode):
+        distanceToNeighbor = self.getHaversineDistance(neighborNode)
+        elevationGainToNeighbor = self.getElevationGain(neighborNode)
+
+        self._neighborList[str(neighborNode.getId())] = {"neighbor": neighborNode, "distanceToNeighbor":distanceToNeighbor, "elevationGainToNeighbor": elevationGainToNeighbor}
 
     '''
         Calculates the distance from self to another node using the haversine formula
@@ -76,6 +79,6 @@ class Node:
         return node.getElevation() - self._elevation if node.getElevation() > self._elevation else 0
 
 #TODO change the representation so that neighborList doesn't print recursive results.
-    def __repr__(self):
-        return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList.keys())
+    # def __repr__(self):
+    #     return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList.keys())
     
