@@ -1,6 +1,6 @@
 import os
 import sys
-from src.Model.A_Star import *
+from src.Model.A_Star import a_star
 from src.Model.Node import Node
 from src.Model.SearchNode import SearchNode
 
