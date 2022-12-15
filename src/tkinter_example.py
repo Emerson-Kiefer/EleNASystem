@@ -1,7 +1,5 @@
-import os
 import tkinter
 import tkintermapview
-from PIL import Image, ImageTk
 
 # create tkinter window
 root_tk = tkinter.Tk()
@@ -12,26 +10,31 @@ root_tk.title("map_view_simple_example.py")
 map_widget = tkintermapview.TkinterMapView(root_tk, width=1000, height=700, corner_radius=0)
 map_widget.pack(fill="both", expand=True)
 
-# load images
-current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-plane_image = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "plane.png")).resize((40, 40)))
-plane_circle_1_image = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "plane_circle_1.png")).resize((35, 35)))
-plane_circle_2_image = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "plane_circle_2.png")).resize((35, 35)))
-airport_image = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "airport.jpg")).resize((100, 70)))
+# set other tile server (standard is OpenStreetMap)
+# map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)  # google normal
+# map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)  # google satellite
 
+# set current position and zoom
+# map_widget.set_position(52.516268, 13.377695, marker=False)  # Berlin, Germany
+# map_widget.set_zoom(17)
 
-def marker_callback(marker):
-    print(marker.text)
+# set current position with address
+# map_widget.set_address("Berlin Germany", marker=False)
 
+def marker_click(marker):
+    print(f"marker clicked - text: {marker.text}  position: {marker.position}")
 
-# create markers
-marker_1 = map_widget.set_marker(52.476062, 13.394172, text="Plane 1", icon=plane_image, command=marker_callback)
-marker_2 = map_widget.set_marker(52.352659, 13.499669, text="Plane 2", icon=plane_circle_1_image,
-                                 image=airport_image, command=marker_callback)
-# marker_2.change_icon(plane_circle_2_image)
+# set a position marker (also with a custom color and command on click)
+marker_2 = map_widget.set_marker(52.516268, 13.377695, text="Brandenburger Tor", command=marker_click)
+marker_3 = map_widget.set_marker(52.55, 13.4, text="52.55, 13.4")
+# marker_3.set_position(...)
+# marker_3.set_text(...)
+# marker_3.delete()
 
-# set initial position of map widget
-map_widget.set_address("Airport Berlin BER")
-map_widget.set_zoom(11)
+# set a path
+path_1 = map_widget.set_path([marker_2.position, marker_3.position, (52.568, 13.4), (52.569, 13.35)])
+# path_1.add_position(...)
+# path_1.remove_position(...)
+# path_1.delete()
 
 root_tk.mainloop()
