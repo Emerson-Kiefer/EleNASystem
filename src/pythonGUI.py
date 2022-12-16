@@ -92,7 +92,11 @@ class MainWindow(QMainWindow):
         
 
     def clickMethod(self):
-        print('Your name: ' + self.line.text())
+        #Retrieves values from the textfields
+        origin = self.line.text()
+        destination = self.line2.text()
+        pdistance = self.line3.text()
+        
 
     def addRoutePath(self, list_nodes):
         latlngs = []
