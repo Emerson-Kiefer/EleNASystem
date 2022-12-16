@@ -3,10 +3,12 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QLabel, QLineEdit
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtCore import QSize   
-import pyqtlet_map_widget
 
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget
 from pyqtlet import L, MapWidget
+import json
+from Model import Node
+#from Model import A_Star
 
 class MapWindow(QWidget):
     def __init__(self):
@@ -19,22 +21,34 @@ class MapWindow(QWidget):
 
         # Working with the maps with pyqtlet
         self.map = L.map(self.mapWidget)
-        self.map.setView([42.38646066688732, -72.52584380181533], 10)
+        self.map.setView([29.66534, 72.64021], 10)
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.map)
         self.marker = L.marker([42.38646066688732, -72.52584380181533])
         self.marker.bindPopup('Maps are a treasure.')
         self.map.addLayer(self.marker)
+        self.map.setMaxBounds = [[-90, -180], [90, 180]]
         self.show()
+
+        #Preventing the tiles from wrapping
+        # wrapDic = {"noWrap": "true", "bounds": [ [-90, -180], [90, 180]]}
+        # wrapJSON = json.dumps(wrapDic)
+        
+        # L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', wrapJSON).addTo(self.map)
+
+
+         
 
 
 
 class MainWindow(QMainWindow):
+    wid = ''
+
     def __init__(self):
         QMainWindow.__init__(self)
 
-        wid = MapWindow()
+        self.wid = MapWindow()
         
-        self.setCentralWidget(wid)
+        self.setCentralWidget(self.wid)
             
 
         self.setMinimumSize(QSize(1000, 700))    
@@ -72,14 +86,47 @@ class MainWindow(QMainWindow):
         pybutton.resize(200,32)
         pybutton.move(20, 260) 
 
-        
+
             
+        
 
     def clickMethod(self):
         print('Your name: ' + self.line.text())
 
+    # def addRoutePath(self, list_nodes):
+    #     latlngs = []
+    #     for i in list_nodes:
+    #         arr = []
+    #         arr.append(i.getLatitude())
+    #         arr.append(i.getLongitude())
+    #         latlngs.append(arr)
+    #     colorDic = {"color": "red"}
+    #     colorJSON = json.dumps(colorDic)
+    #     lineField = L.polyline(latlngs, colorJSON)
+    #     lineField.addTo(self.wid.map)
+
+
+        #lineField = L.polyline(latlngs,{color: 'red'}).addTo(wid.map)
+        # latlngs = [[
+        #     [29.66534, 72.64021],
+        #     [29.66535, 72.63819],
+        #     [29,66376, 72.63817],
+        #     [29.66372, 72.63749]
+        # ]]
+
+       
+
+    # def searchPath(origin, destination):
+    #     aStar_object = A_Star () 
+    #     list_nodes = aStar_object.a_star(origin, destination)
+    #     addRoutePath(list_nodes)
+
+
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
+    #mainWin.addRoutePath(mainWin.wid)
     mainWin.show()
     sys.exit( app.exec_() )
