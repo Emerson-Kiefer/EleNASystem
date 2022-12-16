@@ -170,7 +170,11 @@ class MainWindow(QMainWindow):
                 msg_box.setStandardButtons(QMessageBox.Ok)
                 msg_box.exec_()
             #Need to finish the function by calling a_star and addroutePath
-            
+            else:
+                lat_long_orig = str(forigin_lat) + "," + str(forigin_lng)
+                lat_long_dest = str(fdestination_lat) + "," + str(fdestination_lng)
+                path_list = searchPath(lat_long_orig, lat_long_dest, fpdistance, optdistance)
+                self.addRoutePath(path_list)
 
 
 
@@ -201,7 +205,7 @@ class MainWindow(QMainWindow):
 
     #Function to test addRoutePath
     def temp(self):
-        self.addRoutePath(searchPath("42.383267,-72.539108", "42.3895126,-72.5342512", 100, "maximize"))
+        self.addRoutePath(searchPath("42.3726975,-72.5211276", "42.3734759,-72.521207", 100, "maximize"))
         # latlngs = [
         #     [42.407041496790995, -72.52918404268026],
         #     [42.38348334862606, -72.5202090419146],
@@ -232,6 +236,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
-    mainWin.temp()
+    # mainWin.temp()
     mainWin.show()
     sys.exit( app.exec_() )
