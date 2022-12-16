@@ -23,9 +23,10 @@ class MapWindow(QWidget):
         self.map = L.map(self.mapWidget)
         self.map.setView([29.66534, 72.64021], 10)
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.map)
-        self.marker = L.marker([42.38646066688732, -72.52584380181533])
-        self.marker.bindPopup('Maps are a treasure.')
-        self.map.addLayer(self.marker)
+        #self.marker = L.marker([42.38646066688732, -72.52584380181533])
+        # self.marker = L.marker()
+        # self.marker.bindPopup('Maps are a treasure.')
+        # self.map.addLayer(self.marker)
         self.map.setMaxBounds = [[-90, -180], [90, 180]]
         self.show()
 
@@ -93,18 +94,25 @@ class MainWindow(QMainWindow):
     def clickMethod(self):
         print('Your name: ' + self.line.text())
 
-    # def addRoutePath(self, list_nodes):
-    #     latlngs = []
-    #     for i in list_nodes:
-    #         arr = []
-    #         arr.append(i.getLatitude())
-    #         arr.append(i.getLongitude())
-    #         latlngs.append(arr)
-    #     colorDic = {"color": "red"}
-    #     colorJSON = json.dumps(colorDic)
-    #     lineField = L.polyline(latlngs, colorJSON)
-    #     lineField.addTo(self.wid.map)
+    def addRoutePath(self, list_nodes):
+        latlngs = []
+        for i in list_nodes:
+            arr = []
+            arr.append(i.getLatitude())
+            arr.append(i.getLongitude())
+            latlngs.append(arr)
+        colorDic = {"color": "red"}
+        colorJSON = json.dumps(colorDic)
+        lineField = L.polyline(latlngs, colorJSON)
+        lineField.addTo(self.wid.map)
+        self.wid.map.setView(latlngs[0], 10)
+        self.wid.marker = L.marker(latlngs[0])
+        self.wid.marker.addTo(self.wid.map)
+        self.wid.marker = L.marker(latlngs[-1])
+        self.wid.marker.addTo(self.wid.map)
 
+
+    #Function to test addRoutePath
     def temp(self):
         latlngs = [
             [42.407041496790995, -72.52918404268026],
@@ -114,6 +122,13 @@ class MainWindow(QMainWindow):
         colorDic = {"color": "red"}
         colorJSON = json.dumps(colorDic)
         lineField = L.polyline(latlngs,colorJSON).addTo(self.wid.map)
+        self.wid.map.setView(latlngs[0], 10)
+        self.wid.marker = L.marker(latlngs[0])
+        self.wid.marker.addTo(self.wid.map)
+        self.wid.marker = L.marker(latlngs[-1])
+        self.wid.marker.addTo(self.wid.map)
+
+
 
        
 
@@ -128,6 +143,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
-    mainWin.temp()
+    #mainWin.temp()
     mainWin.show()
     sys.exit( app.exec_() )
