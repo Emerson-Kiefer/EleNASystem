@@ -4,7 +4,6 @@ from SearchGraph import SearchGraph
 
 cur_path = os.path.dirname(__file__)
 parseMap_path = os.path.join(cur_path, '../OSM Data')
-print(parseMap_path)
 sys.path.insert(0, parseMap_path)
 
 from parseMap import *
