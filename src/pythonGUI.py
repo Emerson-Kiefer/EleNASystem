@@ -96,16 +96,23 @@ class MainWindow(QMainWindow):
 
     def addRoutePath(self, list_nodes):
         latlngs = []
+        #retrieve the list of coordinates
         for i in list_nodes:
             arr = []
             arr.append(i.getLatitude())
             arr.append(i.getLongitude())
             latlngs.append(arr)
+
+        #draw line to represent the shortest path 
         colorDic = {"color": "red"}
         colorJSON = json.dumps(colorDic)
         lineField = L.polyline(latlngs, colorJSON)
         lineField.addTo(self.wid.map)
+
+        #Set map view to show origin
         self.wid.map.setView(latlngs[0], 10)
+
+        #Set markers on origin and destination
         self.wid.marker = L.marker(latlngs[0])
         self.wid.marker.addTo(self.wid.map)
         self.wid.marker = L.marker(latlngs[-1])
