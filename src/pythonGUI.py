@@ -105,26 +105,27 @@ class MainWindow(QMainWindow):
         #Retrieves values from the textfields
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Warning)
-
         origin = self.line.text()
-        origin = float(origin)
         destination = self.line2.text()
-        destination = float(destination)
         pdistance = self.line3.text()
-        if( self.line.text() == '' or self.line2.text()==''):
+
+        if( origin == "" or destination == ""):
             msg_box.setText("You forgot to enter origin or destination")
             msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec_()
+        else:
+            forigin = float(origin)
+            fdestination = float(destination)
 
-        elif(origin > 90 or origin < -90):
-            msg_box.setText("Incorrect Input. Change input and try again")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec_()
-        
-        elif(destination > 180 or destination < -180):
-            msg_box.setText("Incorrect Input. Change input and try again")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec_()
+            if(forigin > 90 or forigin < -90):
+                msg_box.setText("Incorrect Input. Change input and try again")
+                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.exec_()
+            
+            elif(fdestination > 180 or fdestination < -180):
+                msg_box.setText("Incorrect Input. Change input and try again")
+                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.exec_()
 
 
     def addRoutePath(self, list_nodes):
