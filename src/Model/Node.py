@@ -81,6 +81,9 @@ class Node:
             
         self._neighborList[str(neighborNode.getId())] = {"neighbor": neighborNode, "distanceToNeighbor":distanceToNeighbor, "elevationGainToNeighbor": elevationGainToNeighbor}
 
+    def removeNeighbor(self, neighborNode):
+        self._neighborList.pop(str(neighborNode.getId()))
+        
     '''
         Calculates the distance from self to another node using the haversine formula
         The earth's radius has a maximum value less than 6378 km, so for the sake of 
