@@ -105,14 +105,15 @@ class MainWindow(QMainWindow):
     #     lineField = L.polyline(latlngs, colorJSON)
     #     lineField.addTo(self.wid.map)
 
-
-        #lineField = L.polyline(latlngs,{color: 'red'}).addTo(wid.map)
-        # latlngs = [[
-        #     [29.66534, 72.64021],
-        #     [29.66535, 72.63819],
-        #     [29,66376, 72.63817],
-        #     [29.66372, 72.63749]
-        # ]]
+    def temp(self):
+        latlngs = [
+            [42.407041496790995, -72.52918404268026],
+            [42.38348334862606, -72.5202090419146],
+            [42.36968346799125, -72.51892192908215],            
+        ]
+        colorDic = {"color": "red"}
+        colorJSON = json.dumps(colorDic)
+        lineField = L.polyline(latlngs,colorJSON).addTo(self.wid.map)
 
        
 
@@ -127,6 +128,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
-    #mainWin.addRoutePath(mainWin.wid)
+    mainWin.temp()
     mainWin.show()
     sys.exit( app.exec_() )
