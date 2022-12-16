@@ -147,7 +147,7 @@ class SearchGraph:
 
     def minmax_elevation_gain(self, currentNode, goalNode, currentElevationGain, currentPathLength, maxPathLength, path, mode):
         #   If the current path length exceedes the maximum allowed path length, return an invalid path object
-        if currentPathLength >= maxPathLength:
+        if currentPathLength > maxPathLength:
             return {"validPath": False}
         
         #   If the current node is the goal node, return a valid path object
