@@ -67,8 +67,7 @@ def test_startIsGoal():
 
 
     #   MinMax Correctness
-    # print(SG.getElevationPath())
-    # assert len(SG.getElevationPath()["path"]) == 1
+    assert len(SG.getElevationPath()["path"]) == 1
     # assert SG.getElevationPath() == 1
     assert SG.getElevationPath()["validPath"]
 

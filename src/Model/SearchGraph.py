@@ -190,7 +190,7 @@ class SearchGraph:
         maxPathLength = self.getPathStats(self._shortestPath)["length"]*(1 + self._percentShortestPath)
 
         #   Set the elevationPath to the minimum/maximum elevation gain path within % of optimal length
-        self._elevationPath = self.minmax_elevation_gain(self._startNode, self._goalNode, 0, 0, maxPathLength, [], self._mode)
+        self._elevationPath = self.minmax_elevation_gain(self._startNode, self._goalNode, 0, 0, maxPathLength, [self._startNode.getId()], self._mode)
 
 
     
