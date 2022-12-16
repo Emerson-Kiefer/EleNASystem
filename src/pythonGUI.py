@@ -206,7 +206,7 @@ class MainWindow(QMainWindow):
     #Function to test addRoutePath
     def temp(self):
         # self.addRoutePath(searchPath("42.3726975,-72.5211276", "42.3734759,-72.521207", 100, "maximize"))
-        self.addRoutePath(searchPath("42.3726975,-72.5211276", "42.3895126,-72.5342512", 100, "maximize"))
+        self.addRoutePath(searchPath("42.3940315,-72.5136417", "42.3940292,-72.5136215", 100, "maximize"))
         # latlngs = [
         #     [42.407041496790995, -72.52918404268026],
         #     [42.38348334862606, -72.5202090419146],
