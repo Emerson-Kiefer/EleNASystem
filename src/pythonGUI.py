@@ -88,6 +88,10 @@ class MainWindow(QMainWindow):
         self.slider.setOrientation(QtCore.Qt.Horizontal)
         self.slider.move(20, 250)
 
+        self.radioButton = QtWidgets.QRadioButton(self)
+        self.radioButton.setGeometry(QtCore.QRect(180, 120, 95, 20))
+        self.radioButton.toggled.connect(self.maleselected)
+
 
         pybutton = QPushButton('Go', self)
         pybutton.clicked.connect(self.clickMethod)
@@ -109,21 +113,35 @@ class MainWindow(QMainWindow):
         destination = self.line2.text()
         pdistance = self.line3.text()
 
-        if( origin == "" or destination == ""):
-            msg_box.setText("You forgot to enter origin or destination")
+        if( origin == "" or destination == "" or pdistance == ""):
+            msg_box.setText("You forgot to enter origin or destination or Optimal Distance")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec_()
+        elif("," not in origin or "," not in destination):
+            msg_box.setText("Input format incorrect")
             msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec_()
         else:
-            forigin = float(origin)
-            fdestination = float(destination)
+            forigin_lat = float(origin.split(",")[0])
+            forigin_lng = float(origin.split(",")[1])
 
-            if(forigin > 90 or forigin < -90):
+            fdestination_lat = float(destination.split(",")[0])
+            fdestination_lng = float(destination.split(",")[1])
+
+            fpdistance = float (pdistance)
+
+            if(forigin_lat > 90 or forigin_lat < -90 or fdestination_lat > 90 or fdestination_lat < -90 ):
                 msg_box.setText("Incorrect Input. Change input and try again")
                 msg_box.setStandardButtons(QMessageBox.Ok)
                 msg_box.exec_()
             
-            elif(fdestination > 180 or fdestination < -180):
+            elif(fdestination_lng > 180 or fdestination_lng < -180 or forigin_lng > 180 or forigin_lng < -180):
                 msg_box.setText("Incorrect Input. Change input and try again")
+                msg_box.setStandardButtons(QMessageBox.Ok)
+                msg_box.exec_()
+
+            elif(fpdistance > 150 or fpdistance < 100):
+                msg_box.setText("Optimal distance should be between 100 to 150")
                 msg_box.setStandardButtons(QMessageBox.Ok)
                 msg_box.exec_()
 
