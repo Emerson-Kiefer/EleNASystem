@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
         
         self.setCentralWidget(self.wid)
             
+        self.maxormin = ""
 
         self.setMinimumSize(QSize(1000, 700))    
         self.setWindowTitle("520 EleNA Project") 
@@ -89,16 +90,31 @@ class MainWindow(QMainWindow):
         self.slider.setOrientation(QtCore.Qt.Horizontal)
         self.slider.move(20, 250)
 
-        self.radioButton = QtWidgets.QRadioButton(self)
-        self.radioButton.setGeometry(QtCore.QRect(180, 120, 95, 20))
-        self.radioButton.toggled.connect(self.maleselected)
+        self.radioButtonMax = QtWidgets.QRadioButton(self)
+        self.radioButtonMax.setGeometry(QtCore.QRect(180, 120, 95, 20))
+        self.radioButtonMax.toggled.connect(self.maxselected)
+        self.radioButtonMax.setText("Max")
+        self.radioButtonMax.move(225, 230)
 
+        self.radioButtonMin = QtWidgets.QRadioButton(self)
+        self.radioButtonMin.setGeometry(QtCore.QRect(180, 120, 95, 20))
+        self.radioButtonMin.toggled.connect(self.minselected)
+        self.radioButtonMin.setText("Min")
+        self.radioButtonMin.move(225, 210)
 
         pybutton = QPushButton('Go', self)
         pybutton.clicked.connect(self.clickMethod)
         pybutton.resize(200,32)
         pybutton.move(20, 270) 
 
+    def maxselected(self, selected):
+        if selected:
+            self.maxormin = "maximize"
+         
+
+    def minselected(self, selected):
+        if selected:
+            self.maxormin = "minimize"   
             
     def ElevationGain(self,value):
         gain = 100
@@ -113,15 +129,23 @@ class MainWindow(QMainWindow):
         origin = self.line.text()
         destination = self.line2.text()
         pdistance = self.line3.text()
+        optdistance = self.maxormin
 
         if( origin == "" or destination == "" or pdistance == ""):
             msg_box.setText("You forgot to enter origin or destination or Optimal Distance")
             msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec_()
+
         elif("," not in origin or "," not in destination):
             msg_box.setText("Input format incorrect")
             msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec_()
+
+        elif(optdistance == ""):
+            msg_box.setText("Select Max or Min")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec_()
+
         else:
             forigin_lat = float(origin.split(",")[0])
             forigin_lng = float(origin.split(",")[1])
@@ -145,6 +169,9 @@ class MainWindow(QMainWindow):
                 msg_box.setText("Optimal distance should be between 100 to 150")
                 msg_box.setStandardButtons(QMessageBox.Ok)
                 msg_box.exec_()
+            #Need to finish the function by calling a_star and addroutePath
+            
+
 
 
     def addRoutePath(self, list_nodes):
