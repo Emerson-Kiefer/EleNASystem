@@ -1,5 +1,4 @@
 from math import radians, sin, cos, asin, sqrt
-import json
 import numbers
 
 class Node:
@@ -74,9 +73,12 @@ class Node:
     #     for neighbor in self._neighborList:
 
     def addNeighbor(self, neighborNode):
+        if len(self._neighborList) == 0:
+            self._neighborList = dict()
+
         distanceToNeighbor = self.getHaversineDistance(neighborNode)
         elevationGainToNeighbor = self.getElevationGain(neighborNode)
-
+            
         self._neighborList[str(neighborNode.getId())] = {"neighbor": neighborNode, "distanceToNeighbor":distanceToNeighbor, "elevationGainToNeighbor": elevationGainToNeighbor}
 
     '''
@@ -107,6 +109,6 @@ class Node:
         return node.getElevation() - self._elevation if node.getElevation() > self._elevation else 0
 
 #TODO change the representation so that neighborList doesn't print recursive results.
-    # def __repr__(self):
-    #     return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList.keys())
+    def __repr__(self):
+        return "<id = {}, latitude = {}, longitude = {}, elevation = {}, neighborList = {}>".format(self._id, self._latitude, self._longitude, self._elevation, self._neighborList.keys())
     
