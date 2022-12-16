@@ -78,7 +78,10 @@ class SearchGraph:
         totalLength = 0
         totalElevationGain = 0
         for i in range (0, len(path) - 1):
-            successorDict = path[i].getNeighbors()[path[i+1].getId()]
+            try:
+                successorDict = path[i].getNeighbors()[path[i+1].getId()]
+            except:
+                successorDict = path[i].getNeighbors()[str(path[i+1].getId())]
             totalLength += successorDict["distanceToNeighbor"]
             totalElevationGain += successorDict["elevationGainToNeighbor"]
             
