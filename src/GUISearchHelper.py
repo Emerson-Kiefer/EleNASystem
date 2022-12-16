@@ -17,6 +17,12 @@ def searchPath(lat_long_orig, lat_long_dest, percent_shortest_path, mode):
 
     originNodeId = coord_dic.get(lat_long_orig)
     destNodeId = coord_dic.get(lat_long_dest)
+    # for key, val in coord_dic.items():
+    #     if "10061124350" == val:
+    #         print(key)
+    # print(node_dic.get("10061124350"))
+    # print(lat_long_dest in coord_dic)
+    # print(originNodeId, destNodeId)
 
     originNode = node_dic.get(originNodeId)
     destNode = node_dic.get(destNodeId)
@@ -35,29 +41,6 @@ def searchPath(lat_long_orig, lat_long_dest, percent_shortest_path, mode):
     
     return list_of_nodes
 
+# print(searchPath("42.3726975,-72.5211276", "42.3734759,-72.521207", 100, "maximize"))
 
-
-# node_dic = loadDictFromTxt(cur_path + "/AmherstNodesWNeighbors")
-# coord_dic = loadDictFromTxt(cur_path + "/CoordinatesToNodeId")
-print(searchPath("42.3734759,-72.521207", "42.3807533,-72.5162987", 100, "maximize"))
-
-# sg = SearchGraph(node_dic.get("10061124349"), node_dic.get("10061124350"), 100.0, "minimize")
-# sg.generatePaths()
-# # print(node_dic.get("10061124349"), node_dic.get("10061124350"))
-
-# # print(sg.getStartNode())
-# # print(sg.getGoalNode())
-# # print(sg._is_valid_mode(sg.getMode()))
-# print(sg.getShortestPath())
-# print(sg.getElevationPath())
-# print("\n")
-
-# sg = SearchGraph(node_dic.get("6302552898"), node_dic.get("10061124350"), 150.0, "maximize")
-# sg.generatePaths()
-# # print(node_dic.get("10061124349"), node_dic.get("10061124350"))
-
-# # print(sg.getStartNode())
-# # print(sg.getGoalNode())
-# # print(sg._is_valid_mode(sg.getMode()))
-# # print(sg.getShortestPath())
-# print(sg.getElevationPath().get("path"))
+# print(searchPath("42.3734686,-72.5212206", "42.383278,-72.5183608", 100, "minimize"))

@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget
 from pyqtlet import L, MapWidget
 import json
 from Model import Node
+from GUISearchHelper import searchPath
 #from Model import A_Star
 
 class MapWindow(QWidget):
@@ -173,19 +174,21 @@ class MainWindow(QMainWindow):
 
     #Function to test addRoutePath
     def temp(self):
-        latlngs = [
-            [42.407041496790995, -72.52918404268026],
-            [42.38348334862606, -72.5202090419146],
-            [42.36968346799125, -72.51892192908215],            
-        ]
-        colorDic = {"color": "red"}
-        colorJSON = json.dumps(colorDic)
-        lineField = L.polyline(latlngs,colorJSON).addTo(self.wid.map)
-        self.wid.map.setView(latlngs[0], 10)
-        self.wid.marker = L.marker(latlngs[0])
-        self.wid.marker.addTo(self.wid.map)
-        self.wid.marker = L.marker(latlngs[-1])
-        self.wid.marker.addTo(self.wid.map)
+        self.addRoutePath(searchPath("42.383267,-72.539108", "42.3895126,-72.5342512", 100, "maximize"))
+        # latlngs = [
+        #     [42.407041496790995, -72.52918404268026],
+        #     [42.38348334862606, -72.5202090419146],
+        #     [42.36968346799125, -72.51892192908215],            
+        # ]
+        # colorDic = {"color": "red"}
+        # colorJSON = json.dumps(colorDic)
+        # lineField = L.polyline(latlngs,colorJSON).addTo(self.wid.map)
+        # self.wid.map.setView(latlngs[0], 10)
+        # self.wid.marker = L.marker(latlngs[0])
+        # self.wid.marker.addTo(self.wid.map)
+        # self.wid.marker = L.marker(latlngs[-1])
+        # self.wid.marker.addTo(self.wid.map)
+
 
 
 
@@ -202,6 +205,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
-    # mainWin.temp()
+    mainWin.temp()
     mainWin.show()
     sys.exit( app.exec_() )
