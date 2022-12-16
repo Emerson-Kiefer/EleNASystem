@@ -41,6 +41,6 @@ def searchPath(lat_long_orig, lat_long_dest, percent_shortest_path, mode):
     
     return list_of_nodes
 
-# print(searchPath("42.3726975,-72.5211276", "42.3734759,-72.521207", 100, "maximize"))
+print(searchPath("42.3726975,-72.5211276", "42.3734759,-72.521207", 100, "maximize"))
 
-# print(searchPath("42.3734686,-72.5212206", "42.383278,-72.5183608", 100, "minimize"))
+print(searchPath("42.3734686,-72.5212206", "42.383278,-72.5183608", 100, "minimize"))
