@@ -45,7 +45,7 @@ def test_completes():
     G.addNeighbor(A)
     G.addNeighbor(D)
 
-    SG = SearchGraph(S, G, 0.2, "maximize")
+    SG = SearchGraph(S, G, 120, "maximize")
     SG.generatePaths()
     assert len(SG.getShortestPath()) > 0 
 
@@ -54,7 +54,7 @@ def test_noPossiblePath():
     #   No possible path
     S = Node("S", 0, 0, 0, {})
     G = Node("G", 25, 25, 0, {})
-    SG = SearchGraph(S, G, 0, "maximize")
+    SG = SearchGraph(S, G, 120, "maximize")
     ERROR_THROWN = False
     try:
         SG.a_star(S, G)
@@ -67,7 +67,7 @@ def test_noPossiblePath():
 def test_startIsGoal():
     S = Node("S", 0, 0, 0, {})
     G = S
-    SG = SearchGraph(S, G, 0, "minimize")
+    SG = SearchGraph(S, G, 120, "minimize")
     SG.generatePaths()
     
     #   A* Correctness
@@ -89,7 +89,7 @@ def test_onePossiblePath():
     B.addNeighbor(A)
     B.addNeighbor(G)
     G.addNeighbor(B)
-    SG = SearchGraph(S, G, 0.2, "maximize")
+    SG = SearchGraph(S, G, 120, "maximize")
     SG.generatePaths()
 
     #   A* Correctness
@@ -120,7 +120,7 @@ def test_onePathWithDeadends():
     DEADEND1b.addNeighbor(DEADEND1a)
     B.addNeighbor(DEADEND2)
     DEADEND2.addNeighbor(B)
-    SG = SearchGraph(S, G, 0.2, "maximize")
+    SG = SearchGraph(S, G, 120, "maximize")
     SG.generatePaths()
 
     #   A* Correctness
@@ -149,7 +149,7 @@ def test_picksOptimalPath():
     G.addNeighbor(B)
 
     #   MAXIMIZE 
-    SG = SearchGraph(S, G, 0.2, "maximize")
+    SG = SearchGraph(S, G, 120, "maximize")
     SG.generatePaths()
     #   A* Correctness
     checkAStarPath(SG.getShortestPath(), ["S", "A", "G"])
@@ -158,7 +158,7 @@ def test_picksOptimalPath():
     checkElevationPath(SG.getElevationPath()["path"], ["S", "A", "G"])
 
     #   MINIMIZE (w/ large enough percentShortestPath to choose the true shortest path)
-    SG = SearchGraph(S, G, 0.07, "minimize")
+    SG = SearchGraph(S, G, 107, "minimize")
     SG.generatePaths()
     #   A* Correctness
     checkAStarPath(SG.getShortestPath(), ["S", "A", "G"])
@@ -167,7 +167,7 @@ def test_picksOptimalPath():
     checkElevationPath(SG.getElevationPath()["path"], ["S", "B", "G"])
 
     #   MINIMIZE (w/ percentShortestPath too small to choose the true shortest path)
-    SG = SearchGraph(S, G, 0.06, "minimize")
+    SG = SearchGraph(S, G, 106, "minimize")
     SG.generatePaths()
     #   A* Correctness
     checkAStarPath(SG.getShortestPath(), ["S", "A", "G"])

@@ -9,6 +9,7 @@ class SearchGraph:
         Node startNode
         Node goalNode
         Double percentShortestPath
+            x% of the shortest path length
         String mode
             Determines whether the algorithm minimizes or maximizes elevation gain
             Minimizes for mode = "minimize", maximizes for mode = "maximize"
@@ -22,21 +23,25 @@ class SearchGraph:
         self._shortestPath = []
         self._elevationPath = []
 
+    '''  Check if startNode is a Node '''
     def _is_valid_startNode(self, startNode):
         if not isinstance(startNode, Node):
             raise TypeError("Error: startNode is not a Node")
         return startNode
 
+    ''' Check if goalNode is a Node '''
     def _is_valid_goalNode(self, goalNode):
         if not isinstance(goalNode, Node):
             raise TypeError("Error: goalNode is not a Node")
         return goalNode
 
+    ''' Check if percentShortestPath is a number '''
     def _is_valid_percentShortestPath(self, percentShortestPath):
         if not isinstance(percentShortestPath, numbers.Number):
             raise TypeError("Error: percentShortestPath is not a number")
         return percentShortestPath
 
+    ''' Check if mode is a string with an acceptable value '''
     def _is_valid_mode(self, mode):
         if not isinstance(mode, str):
             raise TypeError("Error: mode is not a str")
@@ -44,6 +49,7 @@ class SearchGraph:
             raise ValueError("Error: Mode is neither maximize nor minimize")
         return mode
     
+    ''' GETTERS '''
     def getStartNode(self):
         return self._startNode
 
@@ -62,18 +68,31 @@ class SearchGraph:
     def getElevationPath(self):
         return self._elevationPath
 
-    def getPathStats(self, nodes):
+
+    ''' 
+        Input:
+            List path
+                Ordered list of nodes 
+    '''
+    def getPathStats(self, path):
         totalLength = 0
         totalElevationGain = 0
-        for i in range (0, len(nodes) - 1):
-            successorDict = nodes[i].getNeighbors()[nodes[i+1].getId()]
+        for i in range (0, len(path) - 1):
+            successorDict = path[i].getNeighbors()[path[i+1].getId()]
             totalLength += successorDict["distanceToNeighbor"]
             totalElevationGain += successorDict["elevationGainToNeighbor"]
             
         return {"length": totalLength, "elevationGain": totalElevationGain}
 
-
-
+    '''
+        Input:
+            Node startNode
+            Node goalNode
+        Output:
+            SearchNode currentSearchNode
+                The final node discovered during the search (goal node)
+                The parentSearchNode attribute of this SearchNode can be use to reconstruct the path to start
+    '''
     def a_star(self, startNode, goalNode):
 
         ''' fronteirQ is a priority queue containing tuples: (int priority, SearchNode node) '''
@@ -143,8 +162,27 @@ class SearchGraph:
 
         return currentSearchNode
 
-
-
+    '''
+        Input:
+            Node currentNode
+                the current node in the DFS search
+            Node goalNode
+            Double currentElevationGain
+                the total elevation gain along the path to the current node
+            Double currentPathLength
+                the distance of the path to the current node
+            Double maxPathlength
+                The largest path length allowed (percentShortestPath% of the shortest path length)
+            List path
+                list of node IDs in the current path
+            String mode
+                Either "minimize" or "maximize"
+        Output:
+            Dictionary optimalPath
+                "validPath": Whether or not the path is valid
+                "elevationGain": The total elevation gain along the path
+                "path": A list of node ID's
+    '''
     def minmax_elevation_gain(self, currentNode, goalNode, currentElevationGain, currentPathLength, maxPathLength, path, mode):
         #   If the current path length exceedes the maximum allowed path length, return an invalid path object
         if currentPathLength > maxPathLength:
@@ -179,6 +217,7 @@ class SearchGraph:
         return optimalPath
 
 
+    ''' Populates the shortestPath and elevationPath '''
     def generatePaths(self):
         #   Run A* search
         a_star_FinalSearchNode = self.a_star(self._startNode, self._goalNode)
@@ -187,7 +226,7 @@ class SearchGraph:
         self._shortestPath = a_star_FinalSearchNode.recreatePath()
 
         #   Initialize shortestPathLength to the length of shortestPath
-        maxPathLength = self.getPathStats(self._shortestPath)["length"]*(1 + self._percentShortestPath)
+        maxPathLength = self.getPathStats(self._shortestPath)["length"]*(self._percentShortestPath/100)
 
         #   Set the elevationPath to the minimum/maximum elevation gain path within % of optimal length
         self._elevationPath = self.minmax_elevation_gain(self._startNode, self._goalNode, 0, 0, maxPathLength, [self._startNode.getId()], self._mode)
