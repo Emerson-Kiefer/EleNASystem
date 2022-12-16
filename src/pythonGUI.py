@@ -229,6 +229,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     mainWin = MainWindow()
-    mainWin.temp()
+    # mainWin.temp()
     mainWin.show()
     sys.exit( app.exec_() )
