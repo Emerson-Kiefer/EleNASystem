@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QWidget, QLabel, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QWidget, QLabel, QLineEdit, QMessageBox
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtCore import QSize   
 
@@ -84,7 +84,7 @@ class MainWindow(QMainWindow):
 
         self.slider = QtWidgets.QSlider(self)
         self.slider.valueChanged.connect(self.ElevationGain)
-        self.slider.setGeometry(QtCore.QRect(190, 100, 160, 16))
+        self.slider.setGeometry(QtCore.QRect(200, 100, 160, 16))
         self.slider.setOrientation(QtCore.Qt.Horizontal)
         self.slider.move(20, 250)
 
@@ -94,19 +94,37 @@ class MainWindow(QMainWindow):
         pybutton.resize(200,32)
         pybutton.move(20, 270) 
 
-
             
     def ElevationGain(self,value):
-        gain = 0
+        gain = 100
         self.line3.setText(str(gain))
-        self.line3.setText(str(gain+value))
+        self.line3.setText(str(gain+(value//2)))
 
 
     def clickMethod(self):
         #Retrieves values from the textfields
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Warning)
+
         origin = self.line.text()
+        origin = float(origin)
         destination = self.line2.text()
+        destination = float(destination)
         pdistance = self.line3.text()
+        if( self.line.text() == '' or self.line2.text()==''):
+            msg_box.setText("You forgot to enter origin or destination")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec_()
+
+        elif(origin > 90 or origin < -90):
+            msg_box.setText("Incorrect Input. Change input and try again")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec_()
+        
+        elif(destination > 180 or destination < -180):
+            msg_box.setText("Incorrect Input. Change input and try again")
+            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec_()
 
 
     def addRoutePath(self, list_nodes):
