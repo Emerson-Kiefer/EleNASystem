@@ -82,21 +82,32 @@ class MainWindow(QMainWindow):
         self.line3.resize(100, 28)
         self.dist_label.move(20, 210)
 
+        self.slider = QtWidgets.QSlider(self)
+        self.slider.valueChanged.connect(self.ElevationGain)
+        self.slider.setGeometry(QtCore.QRect(190, 100, 160, 16))
+        self.slider.setOrientation(QtCore.Qt.Horizontal)
+        self.slider.move(20, 250)
+
+
         pybutton = QPushButton('Go', self)
         pybutton.clicked.connect(self.clickMethod)
         pybutton.resize(200,32)
-        pybutton.move(20, 260) 
+        pybutton.move(20, 270) 
 
 
             
-        
+    def ElevationGain(self,value):
+        gain = 0
+        self.line3.setText(str(gain))
+        self.line3.setText(str(gain+value))
+
 
     def clickMethod(self):
         #Retrieves values from the textfields
         origin = self.line.text()
         destination = self.line2.text()
         pdistance = self.line3.text()
-        
+
 
     def addRoutePath(self, list_nodes):
         latlngs = []
