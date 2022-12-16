@@ -92,8 +92,8 @@ class SearchNode:
         return nodes
 
 
-    def __gt__(self, searchNode):
-        return self.getPriority() > searchNode.getPriority()
+    # def __gt__(self, searchNode):
+    #     return self.getPriority() > searchNode.getPriority()
 
     def __repr__(self):
         return "<node = {}, minCost = {}, heuristicValue = {}, parentSearchNode = {}>".format(self._node, self._minCost, self._heuristicValue, self._parentSearchNode)
