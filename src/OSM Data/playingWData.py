@@ -2,6 +2,8 @@ from parseMap import *
 import os
 
 cur_path = os.path.dirname(__file__)
-new_dic = loadDictFromTxt(cur_path + "/AmherstNodesWNeighbors")
+node_dic = loadDictFromTxt(cur_path + "/AmherstNodesWNeighbors")
+coord_dic = loadDictFromTxt(cur_path + "/CoordinatesToNodeId")
 
-print(new_dic)
+print(node_dic)
+print(coord_dic)
