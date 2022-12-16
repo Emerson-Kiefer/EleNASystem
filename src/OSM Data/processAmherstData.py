@@ -23,9 +23,9 @@ for node in new_dic.values():
                 break
 
         if flag:
-            print(node)
-            print(neighborDict)
-            print("____________^^ UNPROCESSED ^^____________")
+            # print(node)
+            # print(neighborDict)
+            # print("____________^^ UNPROCESSED ^^____________")
 
             neighbor1 = None
             neighbor2 = None
@@ -36,9 +36,9 @@ for node in new_dic.values():
                 elif neighbor2 == None:
                     neighbor2 = temp
             
-            print(neighbor1)
-            print(neighbor2)
-            print("____________^^ NEIGHBORS ^^____________")
+            # print(neighbor1)
+            # print(neighbor2)
+            # print("____________^^ NEIGHBORS ^^____________")
 
             neighbor1.removeNeighbor(node)
             neighbor2.removeNeighbor(node)
@@ -46,10 +46,10 @@ for node in new_dic.values():
             neighbor1.addNeighbor(neighbor2)
             neighbor2.addNeighbor(neighbor1)
 
-            print(node)
-            print(neighborDict)
-            print("____________^^ PROCESSED ^^____________")
+            # print(node)
+            # print(neighborDict)
+            # print("____________^^ PROCESSED ^^____________")
 
 
-# storeDictAsTxt(new_dic, cur_path + "/AbbrevAmherstNodesWNeighbors")
-# abbrev_dic = loadDictFromTxt(cur_path + "/AbbrevAmherstNodesWNeighbors")
+storeDictAsTxt(new_dic, cur_path + "/AbbrevAmherstNodesWNeighbors")
+abbrev_dic = loadDictFromTxt(cur_path + "/AbbrevAmherstNodesWNeighbors")
