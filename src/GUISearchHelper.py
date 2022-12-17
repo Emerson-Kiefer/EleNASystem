@@ -12,7 +12,7 @@ from SearchGraph import SearchGraph
 from parseMap import *
 
 def searchPath(lat_long_orig, lat_long_dest, percent_shortest_path, mode):
-    node_dic = loadDictFromTxt(cur_path + "/AbbrevAmherstNodesWNeighbors")
+    node_dic = loadDictFromTxt(cur_path + "/AmherstNodesWNeighbors")
     coord_dic = loadDictFromTxt(cur_path + "/CoordinatesToNodeId")
 
     originNodeId = coord_dic.get(lat_long_orig)
