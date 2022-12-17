@@ -8,7 +8,7 @@ sys.path.insert(0, parseMap_path)
 
 from parseMap import *
 
-node_dic = loadDictFromTxt(cur_path + "/AmherstNodesWNeighbors")
+node_dic = loadDictFromTxt(cur_path + "/AbbrevAmherstNodesWNeighbors")
 coord_dic = loadDictFromTxt(cur_path + "/CoordinatesToNodeId")
 
 # print(node_dic)
@@ -26,6 +26,17 @@ print(sg.getElevationPath())
 print("\n")
 
 sg = SearchGraph(node_dic.get("6302552898"), node_dic.get("10061124350"), 150.0, "maximize")
+sg.generatePaths()
+# print(node_dic.get("10061124349"), node_dic.get("10061124350"))
+
+# print(sg.getStartNode())
+# print(sg.getGoalNode())
+# print(sg._is_valid_mode(sg.getMode()))
+print(sg.getShortestPath())
+print(sg.getElevationPath())
+
+sg = SearchGraph(node_dic.get("6302552898"), node_dic.get("2265300922"), 150.0, "maximize")
+print(node_dic.get("6302552898"), node_dic.get("2265300922"))
 sg.generatePaths()
 # print(node_dic.get("10061124349"), node_dic.get("10061124350"))
 
